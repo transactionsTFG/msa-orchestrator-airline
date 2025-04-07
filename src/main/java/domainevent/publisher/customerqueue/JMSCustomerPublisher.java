@@ -8,7 +8,7 @@ import javax.jms.Queue;
 
 import domainevent.publisher.jmseventpublisher.BaseJMSEventPublisher;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
-import integration.producer.qualifiers.ReservationQueue;
+import integration.producer.qualifiers.CustomerQueue;
 import msa.commons.consts.JMSQueueNames;
 
 
@@ -19,8 +19,8 @@ public class JMSCustomerPublisher extends BaseJMSEventPublisher {
 
     @Inject
     @Override
-    public void setQueueInject(@ReservationQueue Queue userServiceQueue) {
-        this.queue = userServiceQueue;
+    public void setQueueInject(@CustomerQueue Queue customerQueue) {
+        this.queue = customerQueue;
     }
 
     @Override

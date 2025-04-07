@@ -19,8 +19,8 @@ public class JMSReservationPublisher extends BaseJMSEventPublisher {
 
     @Inject
     @Override
-    public void setQueueInject(@ReservationQueue Queue userServiceQueue) {
-        this.queue = userServiceQueue;
+    public void setQueueInject(@ReservationQueue Queue reservationQueue) {
+        this.queue = reservationQueue;
     }
 
     @Override
