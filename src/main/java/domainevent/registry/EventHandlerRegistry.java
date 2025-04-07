@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;
 import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventCreateReservationftQualifier;
+import msa.commons.microservices.customerairline.qualifier.CreateCustomerByCreateReservationEventQualifier;
 import msa.commons.microservices.customerairline.qualifier.GetCustomerByCreateReservationEventQualifier;
 import msa.commons.microservices.flight.qualifier.ValidateFlightByEventCreateReservationQualifier;
 import msa.commons.microservices.reservationairline.qualifier.CreateReservationCommitQualifier;
@@ -64,5 +65,10 @@ public class EventHandlerRegistry {
     @Inject
     public void setRollbackCreateReservationByEventCreateReservation(@CreateReservationRollbackQualifier EventHandler rollbackCreateReservationByEventCreateReservation) {
         this.rollbackCreateReservationByEventCreateReservation = rollbackCreateReservationByEventCreateReservation;
+    }
+
+    @Inject
+    public void setCreateCustomerByEventCreateReservation(@CreateCustomerByCreateReservationEventQualifier EventHandler createCustomerByEventCreateReservation) {
+        this.createCustomerByEventCreateReservation = createCustomerByEventCreateReservation;
     }
 }
