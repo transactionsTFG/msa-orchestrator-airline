@@ -13,6 +13,7 @@ import msa.commons.event.EventId;
 import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventCreateReservationftQualifier;
 import msa.commons.microservices.customerairline.qualifier.CreateCustomerByCreateReservationEventQualifier;
 import msa.commons.microservices.customerairline.qualifier.GetCustomerByCreateReservationEventQualifier;
+import msa.commons.microservices.flight.qualifier.UpdateFlightByEventCreateReservationQualifier;
 import msa.commons.microservices.flight.qualifier.ValidateFlightByEventCreateReservationQualifier;
 import msa.commons.microservices.reservationairline.qualifier.CreateReservationCommitQualifier;
 import msa.commons.microservices.reservationairline.qualifier.CreateReservationRollbackQualifier;
@@ -27,6 +28,7 @@ public class EventHandlerRegistry {
     private EventHandler rollbackCreateReservationByEventCreateReservation;
     private EventHandler commitCreateReservationByEventCreateReservation; 
     private EventHandler createCustomerByEventCreateReservation; 
+    private EventHandler updateFlightInstanceByEventCreateReservation;
 
     @PostConstruct
     public void init(){
@@ -35,7 +37,8 @@ public class EventHandlerRegistry {
         this.handlers.put(EventId.AIRCRAFT_VALIDATE_CAPACITY_RESERVATION_AIRLINE_CREATE_RESERVATION, aircraftValidateCapacityByEventCreateReservation);
         this.handlers.put(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, commitCreateReservationByEventCreateReservation);
         this.handlers.put(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, rollbackCreateReservationByEventCreateReservation);
-        this.handlers.put(EventId.AIRCRAFT_PROPAGATION_SAVE_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, createCustomerByEventCreateReservation);
+        this.handlers.put(EventId.AIRCRAFT_PROPAGATION_SAVE_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, updateFlightInstanceByEventCreateReservation);
+        this.handlers.put(EventId.CUSTOMER_AIRLINE_CREATE_CUSTOMER_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, createCustomerByEventCreateReservation);
     }
 
     public EventHandler getHandler(EventId eventId) {
@@ -70,5 +73,10 @@ public class EventHandlerRegistry {
     @Inject
     public void setCreateCustomerByEventCreateReservation(@CreateCustomerByCreateReservationEventQualifier EventHandler createCustomerByEventCreateReservation) {
         this.createCustomerByEventCreateReservation = createCustomerByEventCreateReservation;
+    }
+
+    @Inject
+    public void setUpdateFlightInstanceByEventCreateReservation(@UpdateFlightByEventCreateReservationQualifier EventHandler updateFlightInstanceByEventCreateReservation) {
+        this.updateFlightInstanceByEventCreateReservation = updateFlightInstanceByEventCreateReservation;
     }
 }
