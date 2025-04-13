@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import domainevent.command.handler.BaseEventHandler;
-import domainevent.command.handler.EventHandler;
+import domainevent.command.handler.CommnadHandler;
 import domainevent.publisher.aircraftqueue.JMSAircraftPublisherQualifier;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import msa.commons.event.EventId;
@@ -14,7 +14,7 @@ import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventC
 
 @Stateless
 @ValidateCapacityAircraEventCreateReservationftQualifier
-@Local(EventHandler.class)
+@Local(CommnadHandler.class)
 public class AircraftValidateCapacityByEventCreateReservation extends BaseEventHandler {
 
     @Override

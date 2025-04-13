@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import domainevent.command.handler.BaseEventHandler;
-import domainevent.command.handler.EventHandler;
+import domainevent.command.handler.CommnadHandler;
 import domainevent.publisher.customerqueue.JMSCustomerPublisherQualifier;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import msa.commons.event.EventId;
@@ -13,7 +13,7 @@ import msa.commons.microservices.customerairline.qualifier.GetCustomerByCreateRe
 
 @Stateless
 @GetCustomerByCreateReservationEventQualifier
-@Local(EventHandler.class)
+@Local(CommnadHandler.class)
 public class GetCustomerByEventCreateReservation extends BaseEventHandler {
 
     @Override

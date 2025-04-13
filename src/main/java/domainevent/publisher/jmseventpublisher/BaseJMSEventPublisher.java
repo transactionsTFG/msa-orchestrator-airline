@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import msa.commons.consts.PropertiesConsumer;
 import msa.commons.event.Event;
+import msa.commons.event.EventData;
 import msa.commons.event.EventId;
 
 public abstract class BaseJMSEventPublisher implements IEventPublisher {
@@ -22,7 +23,7 @@ public abstract class BaseJMSEventPublisher implements IEventPublisher {
     private static final Logger LOGGER = LogManager.getLogger(BaseJMSEventPublisher.class);
 
     @Override
-    public void publish(EventId eventId, Object data) {
+    public void publish(EventId eventId, EventData data) {
         try (JMSContext jmsContext = connectionFactory.createContext()) {
             Event sendMsg = new Event(eventId, data);
             TextMessage txt = jmsContext.createTextMessage(this.gson.toJson(sendMsg));

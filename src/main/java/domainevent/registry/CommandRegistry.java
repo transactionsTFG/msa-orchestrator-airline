@@ -8,7 +8,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
-import domainevent.command.handler.EventHandler;
+import domainevent.command.handler.CommnadHandler;
 import msa.commons.event.EventId;
 import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventCreateReservationftQualifier;
 import msa.commons.microservices.customerairline.qualifier.CreateCustomerByCreateReservationEventQualifier;
@@ -20,15 +20,15 @@ import msa.commons.microservices.reservationairline.qualifier.CreateReservationR
 
 @Singleton
 @Startup
-public class EventHandlerRegistry {
-    private Map<EventId, EventHandler> handlers = new EnumMap<>(EventId.class);
-    private EventHandler getCustomerByEventCreateReservation;
-    private EventHandler flightValidateByEventCreteReservation;
-    private EventHandler aircraftValidateCapacityByEventCreateReservation;
-    private EventHandler rollbackCreateReservationByEventCreateReservation;
-    private EventHandler commitCreateReservationByEventCreateReservation; 
-    private EventHandler createCustomerByEventCreateReservation; 
-    private EventHandler updateFlightInstanceByEventCreateReservation;
+public class CommandRegistry {
+    private Map<EventId, CommnadHandler> handlers = new EnumMap<>(EventId.class);
+    private CommnadHandler getCustomerByEventCreateReservation;
+    private CommnadHandler flightValidateByEventCreteReservation;
+    private CommnadHandler aircraftValidateCapacityByEventCreateReservation;
+    private CommnadHandler rollbackCreateReservationByEventCreateReservation;
+    private CommnadHandler commitCreateReservationByEventCreateReservation; 
+    private CommnadHandler createCustomerByEventCreateReservation; 
+    private CommnadHandler updateFlightInstanceByEventCreateReservation;
 
     @PostConstruct
     public void init(){
@@ -41,42 +41,42 @@ public class EventHandlerRegistry {
         this.handlers.put(EventId.CUSTOMER_AIRLINE_CREATE_CUSTOMER_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, createCustomerByEventCreateReservation);
     }
 
-    public EventHandler getHandler(EventId eventId) {
+    public CommnadHandler getHandler(EventId eventId) {
         return this.handlers.get(eventId);
     }
 
     @Inject
-    public void setGetCustomerByEventCreateReservation(@GetCustomerByCreateReservationEventQualifier EventHandler getCustomerByEventCreateReservation) {
+    public void setGetCustomerByEventCreateReservation(@GetCustomerByCreateReservationEventQualifier CommnadHandler getCustomerByEventCreateReservation) {
         this.getCustomerByEventCreateReservation = getCustomerByEventCreateReservation;
     }
 
     @Inject
-    public void setFlightValidateByEventCreteReservation(@ValidateFlightByEventCreateReservationQualifier EventHandler flightValidateByEventCreteReservation) {
+    public void setFlightValidateByEventCreteReservation(@ValidateFlightByEventCreateReservationQualifier CommnadHandler flightValidateByEventCreteReservation) {
         this.flightValidateByEventCreteReservation = flightValidateByEventCreteReservation;
     }
 
     @Inject
-    public void setAircraftValidateCapacityByEventCreateReservation(@ValidateCapacityAircraEventCreateReservationftQualifier EventHandler aircraftValidateCapacityByEventCreateReservation) {
+    public void setAircraftValidateCapacityByEventCreateReservation(@ValidateCapacityAircraEventCreateReservationftQualifier CommnadHandler aircraftValidateCapacityByEventCreateReservation) {
         this.aircraftValidateCapacityByEventCreateReservation = aircraftValidateCapacityByEventCreateReservation;
     }
 
     @Inject
-    public void setCommitCreateReservationByEventCreateReservation(@CreateReservationCommitQualifier EventHandler commitCreateReservationByEventCreateReservation) {
+    public void setCommitCreateReservationByEventCreateReservation(@CreateReservationCommitQualifier CommnadHandler commitCreateReservationByEventCreateReservation) {
         this.commitCreateReservationByEventCreateReservation = commitCreateReservationByEventCreateReservation;
     }
 
     @Inject
-    public void setRollbackCreateReservationByEventCreateReservation(@CreateReservationRollbackQualifier EventHandler rollbackCreateReservationByEventCreateReservation) {
+    public void setRollbackCreateReservationByEventCreateReservation(@CreateReservationRollbackQualifier CommnadHandler rollbackCreateReservationByEventCreateReservation) {
         this.rollbackCreateReservationByEventCreateReservation = rollbackCreateReservationByEventCreateReservation;
     }
 
     @Inject
-    public void setCreateCustomerByEventCreateReservation(@CreateCustomerByCreateReservationEventQualifier EventHandler createCustomerByEventCreateReservation) {
+    public void setCreateCustomerByEventCreateReservation(@CreateCustomerByCreateReservationEventQualifier CommnadHandler createCustomerByEventCreateReservation) {
         this.createCustomerByEventCreateReservation = createCustomerByEventCreateReservation;
     }
 
     @Inject
-    public void setUpdateFlightInstanceByEventCreateReservation(@UpdateFlightByEventCreateReservationQualifier EventHandler updateFlightInstanceByEventCreateReservation) {
+    public void setUpdateFlightInstanceByEventCreateReservation(@UpdateFlightByEventCreateReservationQualifier CommnadHandler updateFlightInstanceByEventCreateReservation) {
         this.updateFlightInstanceByEventCreateReservation = updateFlightInstanceByEventCreateReservation;
     }
 }

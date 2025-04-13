@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import domainevent.command.handler.BaseEventHandler;
-import domainevent.command.handler.EventHandler;
+import domainevent.command.handler.CommnadHandler;
 import domainevent.publisher.flightqueue.JMSFlightPublisherQualifier;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import msa.commons.event.EventId;
@@ -13,7 +13,7 @@ import msa.commons.microservices.flight.qualifier.UpdateFlightByEventCreateReser
 
 @Stateless
 @UpdateFlightByEventCreateReservationQualifier
-@Local(EventHandler.class)
+@Local(CommnadHandler.class)
 public class UpdateFlightInstanceByEventCreateReservation extends BaseEventHandler {
 
     @Override

@@ -12,26 +12,26 @@ import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import domainevent.command.handler.EventHandler;
-import domainevent.registry.EventHandlerRegistry;
+import domainevent.command.handler.CommnadHandler;
+import domainevent.registry.CommandRegistry;
 import msa.commons.consts.JMSQueueNames;
 import msa.commons.event.Event;
 
 @MessageDriven(mappedName = JMSQueueNames.AIRLINE_ORCHESTATOR_QUEUE)
-public class DomainEventConsumerOrchestator implements MessageListener {
+public class CommandConsumerOrchestator implements MessageListener {
     private Gson gson;
-    private EventHandlerRegistry eventHandlerRegistry;
-    private static final Logger LOGGER = LogManager.getLogger(DomainEventConsumerOrchestator.class);
+    private CommandRegistry eventHandlerRegistry;
+    private static final Logger LOGGER = LogManager.getLogger(CommandConsumerOrchestator.class);
 
     @Override
     public void onMessage(Message msg) {
          try {
             if(msg instanceof TextMessage m) {
                 Event event = this.gson.fromJson(m.getText(), Event.class);
-                LOGGER.info("Recibido en Cola {}, Evento Id: {}, Mensaje: {}", JMSQueueNames.AIRLINE_ORCHESTATOR_QUEUE, event.getEventId(), event.getData());
-                EventHandler commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
+                LOGGER.info("Recibido en Cola {}, Evento Id: {}, Mensaje: {}", JMSQueueNames.AIRLINE_ORCHESTATOR_QUEUE, event.getEventId(), event.getValue());
+                CommnadHandler commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
                 if(commandHandler != null)
-                    commandHandler.handle(event.getData());
+                    commandHandler.handle(event.getValue());
             }
         } catch (Exception e) {
             LOGGER.error("Error al recibir el mensaje: {}", e.getMessage());
@@ -41,5 +41,5 @@ public class DomainEventConsumerOrchestator implements MessageListener {
     @Inject
     public void setGson(Gson gson) { this.gson = gson; }
     @EJB
-    public void setCommandHandlerRegistry(EventHandlerRegistry commandHandlerRegistry) { this.eventHandlerRegistry = commandHandlerRegistry; }
+    public void setCommandHandlerRegistry(CommandRegistry commandHandlerRegistry) { this.eventHandlerRegistry = commandHandlerRegistry; }
 }
