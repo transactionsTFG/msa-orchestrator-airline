@@ -80,8 +80,8 @@ public class CommandRegistry {
         this.handlers.put(EventId.FLIGHT_VALIDATE_FLIGHT_RESERVATION_AIRLINE_REMOVE_RESERVATION, flightValidateByEventRemoveReservation);
         this.handlers.put(EventId.FLIGHT_UPDATE_FLIGHT_BY_AIRLINE_REMOVE_RESERVATION_COMMIT_SAGA, flightUpdateByEventRemoveReservationCommit);
         this.handlers.put(EventId.FLIGHT_UPDATE_FLIGHT_BY_AIRLINE_REMOVE_RESERVATION_ROLLBACK_SAGA, flightUpdateByEventRemoveReservationRollback);
-        this.handlers.put(EventId.RESERVATION_AIRLINE_MODIFY_RESERVATION_COMMIT_SAGA, modifyReservationByEventRemoveReservationCommit);
-        this.handlers.put(EventId.RESERVATION_AIRLINE_MODIFY_RESERVATION_ROLLBACK_SAGA, modifyReservationByEventRemoveReservationRollback);
+        this.handlers.put(EventId.RESERVATION_AIRLINE_REMOVE_RESERVATION_COMMIT_SAGA, modifyReservationByEventRemoveReservationCommit);
+        this.handlers.put(EventId.RESERVATION_AIRLINE_REMOVE_RESERVATION_ROLLBACK_SAGA, modifyReservationByEventRemoveReservationRollback);
     }
 
     public CommnadHandler getHandler(EventId eventId) {
