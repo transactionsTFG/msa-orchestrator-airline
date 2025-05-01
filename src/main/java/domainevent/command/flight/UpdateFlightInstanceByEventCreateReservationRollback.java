@@ -4,12 +4,12 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import business.qualifier.modifyreservation.UpdateFlightByModifyReservationRollback;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.CommnadHandler;
 import domainevent.publisher.flightqueue.JMSFlightPublisherQualifier;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import msa.commons.event.EventId;
-import msa.commons.microservices.flight.modifyreservation.qualifier.UpdateFlightByModifyReservationRollback;
 
 @Stateless
 @UpdateFlightByModifyReservationRollback

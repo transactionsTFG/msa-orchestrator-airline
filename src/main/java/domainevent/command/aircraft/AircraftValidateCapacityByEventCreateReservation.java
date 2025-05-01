@@ -4,12 +4,12 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import business.qualifier.createreservation.ValidateCapacityAircraEventCreateReservationftQualifier;
 import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.CommnadHandler;
 import domainevent.publisher.aircraftqueue.JMSAircraftPublisherQualifier;
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
 import msa.commons.event.EventId;
-import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventCreateReservationftQualifier;
 
 
 @Stateless
