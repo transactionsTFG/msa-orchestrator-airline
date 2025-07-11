@@ -11,17 +11,17 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
-import integration.producer.qualifiers.ConnectionFactoryLocal;
+import integration.producer.qualifiers.ConnectionFactoryAgency;
 import msa.commons.consts.PropertiesConsumer;
 import msa.commons.event.Event;
 import msa.commons.event.EventData;
 import msa.commons.event.EventId;
 
-public abstract class BaseJMSEventPublisher implements IEventPublisher {
+public abstract class BaseJMSRemoteAgencyEventPublisher implements IEventPublisher {
     private ConnectionFactory connectionFactory;
     private Gson gson;
     protected Queue queue;
-    private static final Logger LOGGER = LogManager.getLogger(BaseJMSEventPublisher.class);
+    private static final Logger LOGGER = LogManager.getLogger(BaseJMSRemoteAgencyEventPublisher.class);
 
     @Override
     public void publish(EventId eventId, EventData data) {
@@ -37,7 +37,7 @@ public abstract class BaseJMSEventPublisher implements IEventPublisher {
     }
 
     @Inject
-    public void setConnectionFactory(@ConnectionFactoryLocal ConnectionFactory connectionFactory) {
+    public void setConnectionFactory(@ConnectionFactoryAgency ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 
@@ -47,5 +47,5 @@ public abstract class BaseJMSEventPublisher implements IEventPublisher {
     }
 
     public abstract void setQueueInject(Queue queueInject);
-    public abstract String getQueueName();
+    public abstract String getQueueName();   
 }
