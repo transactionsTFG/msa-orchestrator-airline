@@ -7,7 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import javax.json.stream.JsonParser.Event;
 
+import business.qualifier.createreservation.BeginCreateReservationEventQualifier;
 import business.qualifier.createreservation.CreateCustomerByCreateReservationEventQualifier;
 import business.qualifier.createreservation.CreateCustomerByCreateReservationEventRollbackQualifier;
 import business.qualifier.createreservation.CreateReservationCommitQualifier;
@@ -38,6 +40,7 @@ import msa.commons.event.EventId;
 public class CommandRegistry {
     private Map<EventId, CommnadHandler> handlers = new EnumMap<>(EventId.class);
     /* CREATE RESERVATION CYCLE */
+    private CommnadHandler beginCreateReservationEvent;
     private CommnadHandler getCustomerByEventCreateReservation;
     private CommnadHandler flightValidateByEventCreteReservation;
     private CommnadHandler aircraftValidateCapacityByEventCreateReservation;
@@ -62,6 +65,7 @@ public class CommandRegistry {
     private CommnadHandler modifyReservationByEventRemoveReservationRollback;
     @PostConstruct
     public void init(){
+        this.handlers.put(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_BEGIN_SAGA, beginCreateReservationEvent);
         this.handlers.put(EventId.CUSTOMER_AIRLINE_GET_CUSTOMER_RESERVATION_AIRLINE_CREATE_RESERVATION, getCustomerByEventCreateReservation);
         this.handlers.put(EventId.FLIGHT_VALIDATE_FLIGHT_RESERVATION_AIRLINE_CREATE_RESERVATION, flightValidateByEventCreteReservation);
         this.handlers.put(EventId.AIRCRAFT_VALIDATE_CAPACITY_RESERVATION_AIRLINE_CREATE_RESERVATION, aircraftValidateCapacityByEventCreateReservation);
@@ -185,6 +189,11 @@ public class CommandRegistry {
     @Inject
     public void setModifyReservationByEventRemoveReservationRollback(@RemoveReservationByRollbackQualifier CommnadHandler modifyReservationByEventRemoveReservationRollback) {
         this.modifyReservationByEventRemoveReservationRollback = modifyReservationByEventRemoveReservationRollback;
+    }
+
+    @Inject
+    public void setBeginCreateReservationEvent(@BeginCreateReservationEventQualifier CommnadHandler beginCreateReservationEvent) {
+        this.beginCreateReservationEvent = beginCreateReservationEvent;
     }
 
 }
