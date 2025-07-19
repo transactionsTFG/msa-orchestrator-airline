@@ -9,6 +9,7 @@ import domainevent.command.handler.BaseEventHandler;
 import domainevent.command.handler.CommnadHandler;
 
 import domainevent.publisher.jmseventpublisher.IEventPublisher;
+import domainevent.publisher.orchestratoragencyqueue.JMSOrchestratorAgencyQualifier;
 import domainevent.publisher.reservationqueue.JMSReservationPublisherQualifier;
 import msa.commons.event.EventData;
 import msa.commons.event.EventId;
@@ -27,6 +28,11 @@ public class BeginCreateReservationByEventCreateReservation extends BaseEventHan
             this.jmsEventDispatcher.publish(this.sendEventId(), data);
         else 
             this.jmsEventDispatcherAgency.publish(this.sendEventId(), data);
+    }
+
+    @Inject
+    public void setJmsEventDispatcherAgency(@JMSOrchestratorAgencyQualifier IEventPublisher jmsEventDispatcherAgency) {
+        this.jmsEventDispatcherAgency = jmsEventDispatcherAgency;
     }
 
 
