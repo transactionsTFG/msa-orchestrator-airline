@@ -13,7 +13,7 @@ import domainevent.publisher.orchestratoragencyqueue.JMSOrchestratorAgencyQualif
 import domainevent.publisher.reservationqueue.JMSReservationPublisherQualifier;
 import msa.commons.event.EventData;
 import msa.commons.event.EventId;
-import msa.commons.event.eventoperation.reservation.ReservationAirline;
+import msa.commons.event.eventoperation.reservation.CreateReservation;
 
 
 @Stateless
@@ -24,7 +24,7 @@ public class BeginCreateReservationByEventCreateReservation extends BaseEventHan
 
     @Override
     public void handle(EventData data) {
-        if (ReservationAirline.CREATE_RESERVATION_ONLY_AIRLINE_BEGIN.equals(data.getOperation())) 
+        if ( CreateReservation.CREATE_RESERVATION_ONLY_AIRLINE_BEGIN.equals(data.getOperation())) 
             this.jmsEventDispatcher.publish(this.sendEventId(), data);
         else 
             this.jmsEventDispatcherAgency.publish(this.sendEventId(), data);
