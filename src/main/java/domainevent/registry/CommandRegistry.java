@@ -22,6 +22,7 @@ import business.qualifier.createreservation.ValidateCapacityAircraEventCreateRes
 import business.qualifier.createreservation.ValidateFlightByEventCreateReservationQualifier;
 import business.qualifier.modifyreservation.UpdateFlightByModifyReservationCommit;
 import business.qualifier.modifyreservation.UpdateFlightByModifyReservationRollback;
+import business.qualifier.modifyreservation.UpdateReservationBeginByModifyReservation;
 import business.qualifier.modifyreservation.UpdateReservationByModifyReservationCommit;
 import business.qualifier.modifyreservation.UpdateReservationByModifyReservationRollback;
 import business.qualifier.modifyreservation.ValidateCapacityAircrafEventModifyReservationftQualifier;
@@ -54,6 +55,7 @@ public class CommandRegistry {
     private CommnadHandler updateFlightInstanceByEventCreateReservation;
 
     /* MODIFY RESERVATION CYCLE */
+    private CommnadHandler beginUpdateReservationByEventUpdateReservation;
     private CommnadHandler aircraftValidateCapacityByEventModifyReservation;
     private CommnadHandler flightValidateByEventModifyReservation;
     private CommnadHandler flightUpdateByEventModifyReservationCommit;
@@ -80,6 +82,7 @@ public class CommandRegistry {
         this.handlers.put(EventId.CUSTOMER_AIRLINE_CREATE_CUSTOMER_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, createCustomerByEventCreateReservation);
         this.handlers.put(EventId.CUSTOMER_AIRLINE_CREATE_CUSTOMER_RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, createCustomerByEventCreateReservationRollback);
 
+        this.handlers.put(EventId.UPDATE_RESERVATION_TRAVEL, beginUpdateReservationByEventUpdateReservation);
         this.handlers.put(EventId.AIRCRAFT_VALIDATE_CAPACITY_RESERVATION_AIRLINE_MODIFY_RESERVATION, aircraftValidateCapacityByEventModifyReservation);
         this.handlers.put(EventId.FLIGHT_VALIDATE_FLIGHT_RESERVATION_AIRLINE_MODIFY_RESERVATION, flightValidateByEventModifyReservation);
         this.handlers.put(EventId.FLIGHT_UPDATE_FLIGHT_BY_AIRLINE_MODIFY_RESERVATION_COMMIT_SAGA, flightUpdateByEventModifyReservationCommit);
@@ -204,6 +207,11 @@ public class CommandRegistry {
     @Inject
     public void setBeginRemoveReservationByEventReservation(@BeginRemoveReservationQualifier CommnadHandler beginRemoveReservationByEventReservation) {
         this.beginRemoveReservationByEventReservation = beginRemoveReservationByEventReservation;
+    }
+
+    @Inject
+    public void setBeginUpdateReservationByEventUpdateReservation(@UpdateReservationBeginByModifyReservation CommnadHandler beginUpdateReservationByEventUpdateReservation) {
+        this.beginUpdateReservationByEventUpdateReservation = beginUpdateReservationByEventUpdateReservation;
     }
 }
 
