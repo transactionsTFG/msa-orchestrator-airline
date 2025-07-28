@@ -45,6 +45,6 @@ public class BeginRemoveReservationByEventReservation  extends BaseEventHandler 
 
     @Override
     public EventId sendEventId() {
-        return EventId.CREATE_RESERVATION_TRAVEL;
+        return EventId.REMOVE_RESERVATION_TRAVEL;
     }
 }
